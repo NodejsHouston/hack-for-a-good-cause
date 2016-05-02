@@ -1,26 +1,21 @@
-# Javascript: The good Parts
+# JS WAT
 
-http://shop.oreilly.com/product/9780596517748.do
-
-* Douglas Crockford created JSLint and JSMin.
-* He also has been involved in the evolution of the language.
-
-## Why do we need it?
+## What could go wrong?
 
 * Javascript is a language "designed in 10 days" for enhacing websites.
 * The language has evolved over many years, but also brings a lot of legacy baggage.
-* The Good Parts defines a subset of the better features to build better Javascript apps.
 
 ## What's so bad?
 
-* overloaded '+' both adds and concatenates
+* overloaded '+' both adds and concatenates with type coercion
 * == and !=
 * false, null, undefined, undefined, NaN
 * wat moments ([] + [], {} + {}, ...)
 
 ### Overloaded '+' and type coercion
 
-* The '+' operator does different things depending on the left thing
+* It is not the overloading that is so wrong, it is the type coercion
+* The '+' operator does different things depending on the left operand
 ```
 > 1 + 1
 2
@@ -71,7 +66,7 @@ http://shop.oreilly.com/product/9780596517748.do
 * Anything compared to NaN is always false, including NaN `NaN != NaN`
     * NaN being a number type is part of IEEE 754
 
-## wat
+### wat
 
 https://www.destroyallsoftware.com/talks/wat
 ```
@@ -97,19 +92,88 @@ NaN
 "NaNNaNNaNNaN Batman!"
 ```
 
+### Semicolons
+
+Going to play a game of: Guess The Output
+
+Before each statement, assume we set:
+```
+var a = 5;
+var b = 4;
+var c = 3;
+var d = 2;
+var e = 1;
+```
+
+**Note**: these are difficult to do in a REPL, but "work" in normal code
+```
+> a = b
+> ++c
+a == 4
+c == 4
+
+> a = b + c
+> (d + e).toString()
+TypeError: c is not a function
+
+> var name = {"Goodbye": [1, 2, 3]}
+> ["Hello", "Goodbye"].forEach(function(value) {
+>  document.write(value + " " + name + "<br>")
+> })
+1 undefined
+2 undefined
+3 undefined
+
+(modules concat'd together could produce the next one)
+> var foo = function() {
+>   console.log("bar")
+> }
+> (function() {
+>   return "world"
+> })()
+bar
+TypeError: (intermediate value)(...) is not a function
+```
+
+### Hoisting
+
+```
+> console.log(foo);
+> var foo = 2;
+> console.log(foo);
+undefined
+2
+```
+
+```
+> foo();
+> bar();
+> function foo() {
+>   console.log("foo");
+> }
+> var bar = function() {
+>   console.log("bar");
+> };
+foo
+TypeError: undefined is not a function
+```
+
 ## Want to be more confused?
 
 * things that are not what they seem (arguments is not an array)
-* `this` context: the same function call could have different "this"
+* `this` context: the same function call could have different `this` values
 * Functional scope vs block scope
-* Hoisting
-* ES6: const is a const variable, not a const object
-* Prototypical inheritence very different from other OOP
-* typeof may not return what you expect: `typeof [] === 'object'`
+* ES6: const is a const variable (pointer), not a const object
+* typeof may not return what you expect: `typeof [] === 'object'` not Array!
 
 ## Is there any hope?
 
 * There are two types of languages: those everyone hates and those no one uses
 * Yes, there is hope. Stick to a common set of rules
 * Use tools (JSLint, JSHint, ESLint, or others) to help enforce these rules
-* Read the book and find more of the great parts
+
+* Javascript: The Good Parts by Douglas Crockford
+* The Good Parts defines a subset of the better features to build better Javascript apps.
+* Douglas Crockford created JSLint and JSMin.
+* He also has been involved in the evolution of the language.
+* http://shop.oreilly.com/product/9780596517748.do
