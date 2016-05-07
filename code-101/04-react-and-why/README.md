@@ -11,6 +11,21 @@ ReactDOM.render(<HelloMessage name="World" />, document.getElementById('containe
 
 ```
 
+ #### Converted JSX
+
+```
+function HelloMessage(props) {
+  return React.createElement(
+    "div",
+    null,
+    "Hello ",
+    props.name
+  );
+}
+
+ReactDOM.render(React.createElement(HelloMessage, { name: "World" }), document.getElementById('container'));
+```
+
 # What makes React different from other view layers.
 It's just Javascript. Most view layers have the logic in a separate place. In React you can place your logic next to where things are supposed to happen.
 
