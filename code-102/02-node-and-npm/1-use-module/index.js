@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const lodash = require("lodash");
 
-console.log(_.isString("Hack for a good cause!"));
+console.log(lodash.isString("Hack for a good cause!"));
 // true
