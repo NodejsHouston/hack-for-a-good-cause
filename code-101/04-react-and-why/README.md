@@ -38,7 +38,6 @@ const userList = [
 
 const AwesomeList = React.createClass({
   render: function() {
-      	console.log(this.props)
     return (
     	<ul>
       	{this.props.users.filter((user) => user.status === "cool").map((user) => {
@@ -59,3 +58,7 @@ ReactDOM.render(
 
 # What React is not
 It is not your data fetching library, application state management library, or router. You might hear stuff like Flux or Redux but those are just wants to manage and handle your application state. You do not NEED those to build and application.
+
+
+# Show a simple application
+https://github.com/matthewsimo/intro-to-react
